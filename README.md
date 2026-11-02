@@ -1,6 +1,6 @@
 # StudyFlow
 
-A  Pomodoro study timer that is customizable, developed during
+A  Pomodoro-like study timer that is customizable, developed during
 the SAP Labs Bulgaria Mentorship Program.
 
 ## MVP Features
