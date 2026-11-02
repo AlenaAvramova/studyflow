@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyFlow - MVP Database Schema (ERD)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #56AB2F 0%, #A8E063 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 1100px;
+            width: 100%;
+        }
+        h1 { text-align: center; color: #333; margin-bottom: 30px; font-size: 28px; }
+        svg { width: 100%; height: auto; display: block; }
+        @media (max-width: 650px) { body { padding: 10px; } .container { padding: 15px; } h1 { font-size: 21px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>StudyFlow - MVP Database Schema (ERD)</h1>
+    <svg viewBox="0 0 1000 740" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="StudyFlow ERD with four tables. A focus plan has many study sessions. A task can have many study sessions, and the task is optional for a session. A study session can have many breaks.">
+        <!-- FOCUS_PLANS -->
+        <rect x="40" y="50" width="280" height="220" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2" rx="5"/>
+        <rect x="40" y="50" width="280" height="30" fill="#2E7D32" rx="5"/>
+        <text x="180" y="72" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">FOCUS_PLANS</text>
+        <text x="53" y="102" font-size="12" font-weight="bold" fill="#1B5E20">★ plan_id (PK)</text>
+        <text x="53" y="127" font-size="12" fill="#333">focus_minutes (INT)</text>
+        <text x="53" y="152" font-size="12" fill="#333">break_minutes (INT)</text>
+        <text x="53" y="177" font-size="12" fill="#333">session_count (INT)</text>
+        <text x="53" y="202" font-size="12" fill="#333">created_at (TIMESTAMP)</text>
+
+        <!-- TASKS -->
+        <rect x="680" y="50" width="280" height="220" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2" rx="5"/>
+        <rect x="680" y="50" width="280" height="30" fill="#7B1FA2" rx="5"/>
+        <text x="820" y="72" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">TASKS</text>
+        <text x="693" y="102" font-size="12" font-weight="bold" fill="#6A1B9A">★ task_id (PK)</text>
+        <text x="693" y="127" font-size="12" fill="#333">title (VARCHAR)</text>
+        <text x="693" y="152" font-size="12" fill="#333">description (TEXT, NULL)</text>
+        <text x="693" y="177" font-size="12" fill="#333">status (VARCHAR)</text>
+        <text x="693" y="202" font-size="12" fill="#333">created_at (TIMESTAMP)</text>
+
+        <!-- STUDY_SESSIONS -->
+        <rect x="360" y="330" width="280" height="290" fill="#E0F2F1" stroke="#00796B" stroke-width="2" rx="5"/>
+        <rect x="360" y="330" width="280" height="30" fill="#00796B" rx="5"/>
+        <text x="500" y="352" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">STUDY_SESSIONS</text>
+        <text x="373" y="380" font-size="12" font-weight="bold" fill="#004D40">★ session_id (PK)</text>
+        <text x="373" y="405" font-size="12" fill="#333">↗ plan_id (FK)</text>
+        <text x="373" y="430" font-size="12" fill="#333">↗ task_id (FK, NULL)</text>
+        <text x="373" y="455" font-size="12" fill="#333">session_number (INT)</text>
+        <text x="373" y="480" font-size="12" fill="#333">planned_minutes (INT)</text>
+        <text x="373" y="505" font-size="12" fill="#333">actual_focus_seconds (INT)</text>
+        <text x="373" y="530" font-size="12" fill="#333">status (VARCHAR)</text>
+        <text x="373" y="555" font-size="12" fill="#333">started_at (TIMESTAMP)</text>
+        <text x="373" y="580" font-size="12" fill="#333">ended_at (TIMESTAMP, NULL)</text>
+
+        <!-- SESSION_BREAKS -->
+        <rect x="680" y="350" width="280" height="220" fill="#FCE4EC" stroke="#C2185B" stroke-width="2" rx="5"/>
+        <rect x="680" y="350" width="280" height="30" fill="#C2185B" rx="5"/>
+        <text x="820" y="372" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">SESSION_BREAKS</text>
+        <text x="693" y="402" font-size="12" font-weight="bold" fill="#A01545">★ break_id (PK)</text>
+        <text x="693" y="427" font-size="12" fill="#333">↗ session_id (FK)</text>
+        <text x="693" y="452" font-size="12" fill="#333">planned_seconds (INT)</text>
+        <text x="693" y="477" font-size="12" fill="#333">actual_seconds (INT)</text>
+        <text x="693" y="502" font-size="12" fill="#333">started_at (TIMESTAMP)</text>
+        <text x="693" y="527" font-size="12" fill="#333">ended_at (TIMESTAMP, NULL)</text>
+
+        <!-- Relationships: parent to child. Lines terminate at child tables. -->
+        <path d="M 180 270 L 180 300 L 420 300 L 420 330" stroke="#FF6B6B" stroke-width="3" fill="none" marker-end="url(#red-arrow)"/>
+        <text x="265" y="290" font-size="14" font-weight="bold" fill="#E54D4D">1:N</text>
+        <path d="M 820 270 L 820 305 L 585 305 L 585 330" stroke="#FF9800" stroke-width="3" stroke-dasharray="7 5" fill="none" marker-end="url(#orange-arrow)"/>
+        <text x="692" y="294" font-size="14" font-weight="bold" fill="#E87E00">1:N</text>
+        <path d="M 640 458 L 680 458" stroke="#009688" stroke-width="3" fill="none" marker-end="url(#teal-arrow)"/>
+        <text x="645" y="444" font-size="13" font-weight="bold" fill="#009688">1:N</text>
+
+        <!-- Legend -->
+        <text x="40" y="663" font-size="16" font-weight="bold" fill="#333">Legend</text>
+        <text x="40" y="690" font-size="13" fill="#333">★ = Primary Key (PK)    ↗ = Foreign Key (FK)    NULL = Optional</text>
+        <text x="40" y="715" font-size="13" fill="#333">1:N = One-to-many    |    Dashed link = A session may have no task</text>
+        <defs>
+            <marker id="red-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><polygon points="0 0, 10 3, 0 6" fill="#FF6B6B"/></marker>
+            <marker id="orange-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><polygon points="0 0, 10 3, 0 6" fill="#FF9800"/></marker>
+            <marker id="teal-arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><polygon points="0 0, 10 3, 0 6" fill="#009688"/></marker>
+        </defs>
+    </svg>
+</div>
+</body>
+</html>
