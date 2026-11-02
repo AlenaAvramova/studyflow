@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyFlow - MVP Architecture</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #56AB2F 0%, #A8E063 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 1000px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+            font-size: 28px;
+        }
+        svg { width: 100%; height: auto; display: block; }
+        @media (max-width: 650px) {
+            body { padding: 10px; }
+            .container { padding: 15px; }
+            h1 { font-size: 21px; margin-bottom: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>StudyFlow - MVP High-Level Architecture</h1>
+
+        <svg viewBox="0 0 1000 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="StudyFlow MVP high-level architecture with five layers: web and future mobile clients, REST API and CORS, Spring Boot controllers services and repositories, Spring Scheduler, and database.">
+            <!-- LAYER 1: CLIENT -->
+            <rect x="50" y="50" width="900" height="120" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2" rx="8"/>
+            <text x="70" y="75" font-weight="bold" font-size="14" fill="#1B5E20">LAYER 1: CLIENT</text>
+
+            <rect x="240" y="90" width="220" height="60" fill="#81C784" stroke="#1B5E20" stroke-width="2" rx="5"/>
+            <text x="350" y="110" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">Web Browser</text>
+            <text x="350" y="128" text-anchor="middle" font-size="10" fill="#fff">(HTML / CSS / JavaScript)</text>
+
+            <rect x="540" y="90" width="220" height="60" fill="#81C784" stroke="#1B5E20" stroke-width="2" rx="5"/>
+            <text x="650" y="110" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">Mobile App</text>
+            <text x="650" y="128" text-anchor="middle" font-size="10" fill="#fff">(Future)</text>
+
+            <path d="M 500 170 L 500 240" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+            <text x="510" y="210" font-size="11" fill="#666">HTTP / JSON</text>
+
+            <!-- LAYER 2: API -->
+            <rect x="50" y="240" width="900" height="100" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2" rx="8"/>
+            <text x="70" y="265" font-weight="bold" font-size="14" fill="#6A1B9A">LAYER 2: API &amp; COMMUNICATION</text>
+
+            <rect x="290" y="280" width="160" height="40" fill="#CE93D8" stroke="#6A1B9A" stroke-width="2" rx="4"/>
+            <text x="370" y="305" text-anchor="middle" font-size="10" font-weight="bold" fill="#fff">REST API</text>
+
+            <rect x="550" y="280" width="160" height="40" fill="#CE93D8" stroke="#6A1B9A" stroke-width="2" rx="4"/>
+            <text x="630" y="305" text-anchor="middle" font-size="10" font-weight="bold" fill="#fff">CORS Config</text>
+
+            <path d="M 500 340 L 500 390" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+            <!-- LAYER 3: SPRING BOOT APPLICATION -->
+            <rect x="50" y="390" width="900" height="240" fill="#E1F5FE" stroke="#0277BD" stroke-width="2" rx="8"/>
+            <text x="70" y="415" font-weight="bold" font-size="14" fill="#01579B">LAYER 3: SPRING BOOT APPLICATION</text>
+
+            <!-- Controllers -->
+            <rect x="170" y="430" width="180" height="45" fill="#4FC3F7" stroke="#01579B" stroke-width="2" rx="4"/>
+            <text x="260" y="455" text-anchor="middle" font-size="10" font-weight="bold" fill="#fff">SessionController</text>
+
+            <rect x="410" y="430" width="180" height="45" fill="#4FC3F7" stroke="#01579B" stroke-width="2" rx="4"/>
+            <text x="500" y="455" text-anchor="middle" font-size="10" font-weight="bold" fill="#fff">TaskController</text>
+
+            <rect x="650" y="430" width="180" height="45" fill="#4FC3F7" stroke="#01579B" stroke-width="2" rx="4"/>
+            <text x="740" y="455" text-anchor="middle" font-size="10" font-weight="bold" fill="#fff">AnalyticsController</text>
+
+            <!-- Services -->
+            <text x="70" y="495" font-size="10" font-weight="bold" fill="#01579B">Services:</text>
+            <rect x="170" y="500" width="180" height="35" fill="#B3E5FC" stroke="#01579B" stroke-width="1" rx="3"/>
+            <text x="260" y="523" text-anchor="middle" font-size="10" fill="#000">SessionService</text>
+
+            <rect x="410" y="500" width="180" height="35" fill="#B3E5FC" stroke="#01579B" stroke-width="1" rx="3"/>
+            <text x="500" y="523" text-anchor="middle" font-size="10" fill="#000">TaskService</text>
+
+            <rect x="650" y="500" width="180" height="35" fill="#B3E5FC" stroke="#01579B" stroke-width="1" rx="3"/>
+            <text x="740" y="523" text-anchor="middle" font-size="10" fill="#000">AnalyticsService</text>
+
+            <!-- Repositories -->
+            <text x="70" y="555" font-size="10" font-weight="bold" fill="#01579B">Repositories:</text>
+            <rect x="275" y="560" width="190" height="30" fill="#81D4FA" stroke="#01579B" stroke-width="1" rx="3"/>
+            <text x="370" y="580" text-anchor="middle" font-size="10" fill="#000">SessionRepository</text>
+
+            <rect x="535" y="560" width="190" height="30" fill="#81D4FA" stroke="#01579B" stroke-width="1" rx="3"/>
+            <text x="630" y="580" text-anchor="middle" font-size="10" fill="#000">TaskRepository</text>
+
+            <path d="M 500 630 L 500 660" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+            <!-- LAYER 4: ASYNCHRONOUS PROCESSING -->
+            <rect x="50" y="660" width="900" height="100" fill="#FFE0B2" stroke="#E65100" stroke-width="2" rx="8"/>
+            <text x="70" y="685" font-weight="bold" font-size="14" fill="#BF360C">LAYER 4: ASYNCHRONOUS PROCESSING</text>
+
+            <rect x="365" y="705" width="270" height="40" fill="#FFB74D" stroke="#BF360C" stroke-width="2" rx="4"/>
+            <text x="500" y="730" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">Spring Scheduler</text>
+
+            <path d="M 500 760 L 500 830" stroke="#666" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+            <!-- LAYER 5: DATABASE -->
+            <rect x="50" y="830" width="900" height="60" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2" rx="8"/>
+            <text x="70" y="855" font-weight="bold" font-size="14" fill="#6A1B9A">LAYER 5: DATABASE (PostgreSQL / MySQL)</text>
+            <text x="500" y="881" text-anchor="middle" font-size="11" fill="#6A1B9A">Focus Plans | Study Sessions | Tasks | Session Breaks</text>
+
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#666"/>
+                </marker>
+            </defs>
+        </svg>
+    </div>
+</body>
+</html>
